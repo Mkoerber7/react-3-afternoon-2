@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import BlogTile from './subcomponents/BlogTile';
-
+import axios from 'axios'
 // import axios
 
 class User extends Component{
@@ -14,7 +14,18 @@ class User extends Component{
         }
     }
 
-    // insert componentWillMount
+    componentDidMount() {
+        axios.get(`/api/user/${this.props.match.params.id}`).then(response => {
+            this.setState=({
+                user: response.data
+            })
+        }).catch(console.log)
+        axios.get(`/api/blogs/${this.props.match.params.id}`).then(response => {
+            this.setState=({
+                posts: response.data
+            })
+        }).catch(console.log)
+    }
     
 
     render(){
